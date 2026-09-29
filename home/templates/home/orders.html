@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .order {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-total {
+            text-align: right;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .empty {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: white;
+            background: #333;
+            padding: 10px 18px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="{% url 'home' %}" class="back">← Continue Shopping</a>
+
+    <h1>My Orders</h1>
+
+    {% if orders %}
+
+        {% for order in orders %}
+
+            <div class="order">
+
+                <div class="order-header">
+                    <div>
+                        <strong>Order #{{ order.id }}</strong>
+                    </div>
+
+                    <div>
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </div>
+                </div>
+
+                <p>
+                    Status:
+                    <span class="status">
+                        {{ order.status }}
+                    </span>
+                </p>
+
+                {% for item in order.orderitem_set.all %}
+
+                    <div class="order-item">
+                        <div>
+                            <strong>{{ item.product.name }}</strong>
+                            <br>
+                            Quantity: {{ item.quantity }}
+                        </div>
+
+                        <div>
+                            ₹{{ item.price }}
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+                <div class="order-total">
+                    Total: ₹{{ order.total_price }}
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            <h2>No orders yet</h2>
+            <p>You haven't placed any orders.</p>
+
+            <a href="{% url 'home' %}">
+                Start Shopping
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

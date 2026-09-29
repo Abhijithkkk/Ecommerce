@@ -1,0 +1,371 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IStore</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            
+            background-color: #F5F5F7;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #FFFFFF;
+            padding: .5px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            height: 65px;
+        }
+
+        .logo-brand img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 8px;
+        }
+
+        .shop-name {
+            color: black;
+            font-size: 45px;
+            font-weight: bold;
+            text-decoration: none;
+            font-style: inherit;
+        }
+        
+
+        .product-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            height: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 230px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .product-name {
+            font-size: 23px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .product-price {
+            color: #198754;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .product-description {
+            color: #666;
+            min-height: 50px;
+        }
+
+        .add-cart {
+            width: 100%;
+            color: #FFFFFF;
+        }
+
+        .welcome {
+            
+            text-align: center;
+            margin: 45px 0 30px;
+            color: white;
+        }
+
+        .welcome h2 {
+            font-weight: bold;
+            color: #1D1D1F;
+        }
+
+        .welcome p {
+            color: white;
+            font-style: italic;
+        }
+
+        .video video {
+            position: relative;
+            z-index: 2;
+            
+    
+            width: 1200px;
+            height: 300px;
+
+            max-width: 100%;
+            margin: 0 auto 35px auto; 
+
+            border-radius: 24px;
+            overflow: hidden;
+            
+            
+            background:100px black;
+
+            border: 20px;
+            
+            /* box-shadow:
+                    0 0 20px rgba(0, 140, 255, 0.15),
+                    0 0 60px rgba(0, 140, 255, 0.08),
+                    0 30px 80px rgba(0, 0, 0, 0.8); */
+        }
+
+    .site-footer {
+        background: #222;
+        color: white;
+        margin-top: 50px;
+        padding-top: 40px;
+    }
+
+    .footer-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: auto;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+    }
+
+    .footer-section h3 {
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+
+    .footer-section p {
+        color: #ccc;
+        line-height: 1.6;
+        margin: 5px 0;
+    }
+
+    .footer-section a {
+        display: block;
+        color: #ccc;
+        text-decoration: none;
+        margin: 8px 0;
+    }
+
+    .footer-section a:hover {
+        color: white;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        border-top: 1px solid #444;
+        margin-top: 30px;
+        padding: 20px;
+    }
+
+    .footer-bottom p {
+        margin: 0;
+        color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+        .footer-container {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .footer-container {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container d-flex align-items-center justify-content-between">
+            
+            
+
+            <a href="/" class="logo-brand">
+                <img src="{% static 'logo/images/apple.png' %}" alt="">
+                <span class="shop-name">I Store</span>
+                
+                
+            </a>
+            <div class="search">
+                <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div>
+                <a href="{% url 'cart' %}" class="btn btn-success me-2">
+                    🛒 Cart
+                </a>
+
+                <a href="{% url 'login' %}" class="btn btn-primary me-2">
+                    Login
+                </a>
+
+                <a href="{% url 'signup' %}" class="btn btn-light border">
+                    Sign Up
+                </a>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <!-- Welcome -->
+    <div class="container">
+
+        <div class="welcome">
+            <h2>Welcome to IStore</h2>
+            <p class="text-muted">
+                Find the products you love at the best prices.
+            </p>
+        </div>
+
+        <div class="video">
+            <video src="{% static 'logo/images/18promax3d.mp4'%}" autoplay loop>
+                
+            </video>
+        </div>
+
+
+        <!-- Products -->
+        <div class="row g-4">
+
+            {% for product in products %}
+
+            <div class="col-lg-4 col-md-6 col-sm-12">
+
+                <div class="product-card">
+
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}"
+                             alt="{{ product.name }}"
+                             class="product-image">
+                    {% else %}
+                        <div class="product-image d-flex align-items-center justify-content-center bg-light">
+                            <span class="text-muted">No Image</span>
+                        </div>
+                    {% endif %}
+
+
+                    <h3 class="product-name">
+                        {{ product.name }}
+                    </h3>
+
+
+                    <p class="product-description">
+                        {{ product.description }}
+                    </p>
+
+
+                    <p class="product-price">
+                        ₹{{ product.price }}
+                    </p>
+
+
+                    <a href="{% url 'add_to_cart' product.id %}"
+                       class="btn btn-primary add-cart">
+                        🛒 Add to Cart
+                    </a>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+                <div class="alert alert-info">
+                    No products available.
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <footer class="site-footer">
+
+    <div class="footer-container">
+
+        <!-- About -->
+        <div class="footer-section">
+            <h3>E-Shop</h3>
+            <p>
+                Your one-stop online shop for quality products
+                at affordable prices.
+            </p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'cart' %}">Cart</a>
+            <a href="{% url 'orders' %}">My Orders</a>
+        </div>
+
+        <!-- Account -->
+        <div class="footer-section">
+            <h3>Account</h3>
+
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Create Account</a>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+
+            <p>Email: support@eshop.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>India</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>
+            © 2026 E-Shop. All Rights Reserved.
+        </p>
+    </div>
+
+    </footer>
+</body>
+</html>
