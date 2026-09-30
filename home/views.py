@@ -11,6 +11,8 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 
+
+@login_required(login_url='/login/')
 def home(request):
     products = Product.objects.all()
     return render(request, 'home/home.html', {'products': products})
@@ -89,11 +91,10 @@ def signup(request):
 
     return render(request, 'home/signup.html')
 
-
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         user = authenticate(
             request,
@@ -104,8 +105,10 @@ def user_login(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-        else:
-            messages.error(request, 'Invalid username or password')
+
+        return render(request, 'home/login.html', {
+            'error': 'Invalid username or password'
+        })
 
     return render(request, 'home/login.html')
 

@@ -136,6 +136,119 @@
                     0 30px 80px rgba(0, 0, 0, 0.8); */
         }
 
+        /* ================= NAV ACTIONS ================= */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Common button */
+
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 42px;
+    padding: 0 18px;
+
+    border-radius: 14px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+
+/* Cart */
+
+.cart-btn {
+    background: #198754;
+    color: white;
+}
+
+.cart-btn:hover {
+    background: #157347;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* Login */
+
+.login-btn {
+    background: #0071e3;
+    color: white;
+}
+
+.login-btn:hover {
+    background: #005bb5;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* Signup */
+
+.signup-btn {
+    background: white;
+    color: #111;
+    border: 1px solid #ddd;
+}
+
+.signup-btn:hover {
+    background: #f5f5f7;
+    color: #111;
+    transform: translateY(-2px);
+}
+
+
+/* Logout */
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-btn {
+    border: none;
+
+    background: #111;
+    color: white;
+}
+
+.logout-btn:hover {
+    background: #333;
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+    .nav-actions {
+        gap: 5px;
+    }
+
+    .nav-btn {
+        padding: 0 10px;
+        font-size: 13px;
+    }
+
+}
+
     .site-footer {
         background: #222;
         color: white;
@@ -223,18 +336,36 @@
                 </form>
             </div>
 
-            <div>
-                <a href="{% url 'cart' %}" class="btn btn-success me-2">
-                    🛒 Cart
-                </a>
+            <div class="nav-actions">
+                <a href="{% url 'cart' %}" class="btn btn-success">
+    🛒 Cart
+</a>
 
-                <a href="{% url 'login' %}" class="btn btn-primary me-2">
-                    Login
-                </a>
+{% if user.is_authenticated %}
+    <span class="me-3">
+        HI, {{ user.username}} 
+     
+    </span>
+    
+    <a href="{% url 'orders' %}" class="btn btn-primary">
+        📦 Orders
+    </a>
 
-                <a href="{% url 'signup' %}" class="btn btn-light border">
-                    Sign Up
-                </a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">
+        Logout
+    </a>
+
+{% else %}
+
+    <a href="{% url 'login' %}" class="btn btn-primary">
+        Login
+    </a>
+
+    <a href="{% url 'signup' %}" class="btn btn-outline-dark">
+        Sign Up
+    </a>
+
+{% endif %}
             </div>
 
         </div>

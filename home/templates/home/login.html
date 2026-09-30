@@ -1,13 +1,435 @@
-<form method="POST">
-    {% csrf_token %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | IStore</title>
 
-    <input type="text" name="username" placeholder="Username" required>
+    <style>
 
-    <input type="password" name="password" placeholder="Password" required>
+        * {
+            box-sizing: border-box;
+        }
 
-    <button type="submit">Login</button>
+        body {
+            margin: 0;
+            min-height: 100vh;
 
-    {% if error %}
-        <p>{{ error }}</p>
-    {% endif %}
-</form>
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(255,255,255,0.9),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 85% 25%,
+                    rgba(255,204,102,0.8),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #fff8df,
+                    #ffcc66
+                );
+
+            overflow: hidden;
+        }
+
+
+        /* ================= LIQUID BACKGROUND ================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 350px;
+            height: 350px;
+
+            top: -100px;
+            left: -100px;
+
+            background: rgba(255,255,255,0.45);
+
+            border-radius: 50%;
+
+            filter: blur(10px);
+
+            animation: liquid1 8s ease-in-out infinite;
+        }
+
+
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 400px;
+            height: 400px;
+
+            right: -100px;
+            bottom: -150px;
+
+            background: rgba(255,190,70,0.45);
+
+            border-radius: 50%;
+
+            filter: blur(15px);
+
+            animation: liquid2 10s ease-in-out infinite;
+        }
+
+
+        @keyframes liquid1 {
+
+            0%, 100% {
+                transform: translate(0,0) scale(1);
+            }
+
+            50% {
+                transform: translate(80px,60px) scale(1.15);
+            }
+
+        }
+
+
+        @keyframes liquid2 {
+
+            0%, 100% {
+                transform: translate(0,0) scale(1);
+            }
+
+            50% {
+                transform: translate(-70px,-50px) scale(1.1);
+            }
+
+        }
+
+
+        /* ================= LOGIN CARD ================= */
+
+        .login {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 400px;
+
+            padding: 42px;
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(30px) saturate(160%);
+            -webkit-backdrop-filter: blur(30px) saturate(160%);
+
+            border: 1px solid rgba(255,255,255,0.65);
+
+            box-shadow:
+
+                0 30px 80px rgba(0,0,0,0.18),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.9),
+
+                inset 0 -1px 0
+                rgba(255,255,255,0.2);
+
+            overflow: hidden;
+        }
+
+
+        /* Glass reflection */
+
+        .login::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 150px;
+
+            top: -80px;
+            left: -50px;
+
+            background: rgba(255,255,255,0.45);
+
+            border-radius: 50%;
+
+            filter: blur(25px);
+
+            transform: rotate(-25deg);
+        }
+
+
+        /* ================= TITLE ================= */
+
+        .login h2 {
+
+            position: relative;
+
+            text-align: center;
+
+            margin: 0 0 30px;
+
+            font-size: 34px;
+
+            font-weight: 800;
+
+            color: #111;
+        }
+
+
+        /* ================= INPUTS ================= */
+
+        .login input {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 52px;
+
+            margin-bottom: 18px;
+
+            padding: 0 17px;
+
+            border-radius: 16px;
+
+            border: 1px solid rgba(255,255,255,0.7);
+
+            background: rgba(255,255,255,0.35);
+
+            backdrop-filter: blur(10px);
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #111;
+
+            box-shadow:
+
+                inset 0 1px 2px
+                rgba(255,255,255,0.7),
+
+                0 5px 15px
+                rgba(0,0,0,0.04);
+
+            transition: 0.3s;
+        }
+
+
+        .login input::placeholder {
+            color: rgba(0,0,0,0.45);
+        }
+
+
+        .login input:focus {
+
+            background: rgba(255,255,255,0.55);
+
+            border-color: white;
+
+            box-shadow:
+
+                0 0 0 4px
+                rgba(255,255,255,0.25),
+
+                0 8px 25px
+                rgba(0,0,0,0.08);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .login button {
+
+            width: 100%;
+
+            height: 53px;
+
+            margin-top: 5px;
+
+            border: 1px solid rgba(255,255,255,0.7);
+
+            border-radius: 16px;
+
+            background: rgba(255,204,102,0.85);
+
+            backdrop-filter: blur(15px);
+
+            color: #111;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 10px 25px rgba(0,0,0,0.10),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.9);
+
+            transition: 0.3s;
+        }
+
+
+        .login button:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.01);
+
+            background: rgba(255,255,255,0.65);
+
+            box-shadow:
+
+                0 15px 35px
+                rgba(0,0,0,0.15),
+
+                inset 0 1px 0
+                rgba(255,255,255,1);
+        }
+
+
+        /* ================= ERROR ================= */
+
+        .error {
+
+            margin-top: 15px;
+
+            padding: 10px;
+
+            border-radius: 10px;
+
+            background: rgba(255,80,80,0.15);
+
+            color: #b71c1c;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= SIGNUP LINK ================= */
+
+        .signup-link {
+
+            position: relative;
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: rgba(0,0,0,0.55);
+
+            font-size: 14px;
+        }
+
+
+        .signup-link a {
+
+            color: #111;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 500px) {
+
+            .login {
+
+                width: calc(100% - 30px);
+
+                padding: 30px 22px;
+
+                border-radius: 25px;
+            }
+
+            .login h2 {
+                font-size: 29px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="login">
+
+    <h2>Welcome Back</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+        >
+
+        <button type="submit">
+            Login
+        </button>
+
+        <!-- Login error -->
+        {% if error %}
+            <p class="error">
+                {{ error }}
+            </p>
+        {% endif %}
+
+    </form>
+
+
+    <div class="signup-link">
+
+        Don't have an account?
+
+        <a href="{% url 'signup' %}">
+            Create Account
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -2,41 +2,500 @@
 <html>
 <head>
     <title>Sign Up</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(circle at 15% 20%,
+                    rgba(255,255,255,0.9),
+                    transparent 25%),
+
+                radial-gradient(circle at 85% 25%,
+                    rgba(255,204,102,0.8),
+                    transparent 30%),
+
+                linear-gradient(
+                    135deg,
+                    #fff8df,
+                    #ffcc66
+                );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+
+        /* ================= LIQUID BLOBS ================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 350px;
+            height: 350px;
+
+            background: rgba(255,255,255,0.45);
+
+            border-radius: 50%;
+
+            top: -100px;
+            left: -100px;
+
+            filter: blur(10px);
+
+            animation: liquid1 8s ease-in-out infinite;
+        }
+
+
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            width: 400px;
+            height: 400px;
+
+            background: rgba(255,190,70,0.45);
+
+            border-radius: 50%;
+
+            bottom: -150px;
+            right: -100px;
+
+            filter: blur(15px);
+
+            animation: liquid2 10s ease-in-out infinite;
+        }
+
+
+        @keyframes liquid1 {
+
+            0%,100% {
+                transform: translate(0,0) scale(1);
+            }
+
+            50% {
+                transform: translate(80px,60px) scale(1.15);
+            }
+
+        }
+
+
+        @keyframes liquid2 {
+
+            0%,100% {
+                transform: translate(0,0) scale(1);
+            }
+
+            50% {
+                transform: translate(-70px,-50px) scale(1.1);
+            }
+
+        }
+
+
+        /* ================= MAIN GLASS ================= */
+
+        .singup {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: 440px;
+
+            padding: 40px;
+
+            border-radius: 30px;
+
+            background: rgba(255,255,255,0.25);
+
+            backdrop-filter: blur(30px) saturate(160%);
+            -webkit-backdrop-filter: blur(30px) saturate(160%);
+
+            border: 1px solid rgba(255,255,255,0.65);
+
+            box-shadow:
+
+                0 30px 80px rgba(0,0,0,0.18),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.9),
+
+                inset 0 -1px 0
+                rgba(255,255,255,0.2);
+
+            overflow: hidden;
+        }
+
+
+        /* Glass reflection */
+
+        .singup::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 150px;
+
+            top: -80px;
+            left: -50px;
+
+            background: rgba(255,255,255,0.45);
+
+            border-radius: 50%;
+
+            filter: blur(25px);
+
+            transform: rotate(-25deg);
+
+        }
+
+
+        /* ================= TITLE ================= */
+
+        .singup h2 {
+
+            position: relative;
+
+            text-align: center;
+
+            margin: 0 0 30px;
+
+            font-size: 34px;
+
+            font-weight: 800;
+
+            color: #111;
+
+        }
+
+
+        /* ================= FORM ================= */
+
+        .sing {
+
+            position: relative;
+
+        }
+
+
+        .sing label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            color: #222;
+
+        }
+
+
+        .sing input {
+
+            width: 100%;
+
+            height: 50px;
+
+            padding: 0 15px;
+
+            margin-bottom: 18px;
+
+            border-radius: 15px;
+
+            border: 1px solid
+                rgba(255,255,255,0.7);
+
+            background:
+                rgba(255,255,255,0.35);
+
+            backdrop-filter: blur(10px);
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #111;
+
+            box-shadow:
+
+                inset 0 1px 2px
+                rgba(255,255,255,0.7),
+
+                0 5px 15px
+                rgba(0,0,0,0.04);
+
+            transition: 0.3s;
+        }
+
+
+        .sing input::placeholder {
+
+            color: rgba(0,0,0,0.4);
+
+        }
+
+
+        .sing input:focus {
+
+            background:
+                rgba(255,255,255,0.55);
+
+            border-color: white;
+
+            box-shadow:
+
+                0 0 0 4px
+                rgba(255,255,255,0.25),
+
+                0 8px 25px
+                rgba(0,0,0,0.08);
+
+            transform: translateY(-1px);
+
+        }
+
+
+        /* ================= REMOVE BR TAG SPACING ================= */
+
+        .sing br {
+            display: none;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .sing button {
+
+            width: 100%;
+
+            height: 53px;
+
+            margin-top: 5px;
+
+            border: 1px solid
+                rgba(255,255,255,0.7);
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,204,102,0.85);
+
+            backdrop-filter: blur(15px);
+
+            color: #111;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 10px 25px
+                rgba(0,0,0,0.10),
+
+                inset 0 1px 0
+                rgba(255,255,255,0.9);
+
+            transition: all 0.3s ease;
+
+        }
+
+
+        .sing button:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.01);
+
+            background:
+                rgba(255,255,255,0.65);
+
+            box-shadow:
+
+                0 15px 35px
+                rgba(0,0,0,0.15),
+
+                inset 0 1px 0
+                rgba(255,255,255,1);
+
+        }
+
+
+        /* ================= LOGIN ================= */
+
+        .singup > p {
+
+            position: relative;
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: rgba(0,0,0,0.55);
+
+            font-size: 14px;
+
+        }
+
+
+        .singup > p a {
+
+            color: #111;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+        }
+
+
+        .singup > p a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* ================= ERROR ================= */
+
+        .singup > p:last-child {
+
+            color: #c62828;
+
+        }
+
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 500px) {
+
+            .singup {
+
+                width: calc(100% - 30px);
+
+                padding: 30px 22px;
+
+                border-radius: 25px;
+
+            }
+
+            .singup h2 {
+
+                font-size: 29px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
+
+<div class="singup">  
 
     <h2>Create Account</h2>
 
-    <form method="POST">
-        {% csrf_token %}
+    <div class="sing">
 
-        <label>Username:</label>
-        <input type="text" name="username" required>
-        <br><br>
+        <form method="POST">
 
-        <label>Email:</label>
-        <input type="email" name="email" required>
-        <br><br>
+            {% csrf_token %}
 
-        <label>Password:</label>
-        <input type="password" name="password" required>
-        <br><br>
+            <label>Username:</label>
 
-        <label>Confirm Password:</label>
-        <input type="password" name="confirm_password" required>
-        <br><br>
+            <input
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                required
+            >
 
-        <button type="submit">Sign Up</button>
-    </form>
+            <br><br>
+
+
+            <label>Email:</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <br><br>
+
+
+            <label>Password:</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Create a password"
+                required
+            >
+
+            <br><br>
+
+
+            <label>Confirm Password:</label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                placeholder="Confirm your password"
+                required
+            >
+
+            <br><br>
+
+
+            <button type="submit">
+                Sign Up
+            </button>
+
+        </form>
+
+    </div>
+
 
     <p>
         Already have an account?
         <a href="{% url 'login' %}">Login</a>
     </p>
 
+
     {% if error %}
+
         <p>{{ error }}</p>
+
     {% endif %}
+
+</div>  
 
 </body>
 </html>
